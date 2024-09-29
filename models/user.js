@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Comment, {foreignKey: "userId", as: "comment"})
       User.hasMany(models.Notification, {foreignKey: "userId", as: "notification"})
       User.hasMany(models.Post, {foreignKey: "userId", as: "post"})
-\
     }
   }
   User.init({
