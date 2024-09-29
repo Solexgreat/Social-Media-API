@@ -9,16 +9,35 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      comment: {
-        type: Sequelize.STRING
+      content: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      imageUrl: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      videoUrl: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference : {
+          model: 'Users',
+          key: "id"
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        allowNull: true,
+        type: Sequelize.STRING
       }
     });
   },

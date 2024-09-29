@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
+      Follower.belongsTo(models.User, {foreignKey: "userId", as: "user"})
     }
   }
   Follower.init({

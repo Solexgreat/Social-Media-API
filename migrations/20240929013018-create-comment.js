@@ -10,7 +10,36 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      imageUrl: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      videoUrl: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference : {
+          model: 'Users',
+          key: "id"
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
+      postId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference : {
+          model: 'Posts',
+          key: "id"
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
