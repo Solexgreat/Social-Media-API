@@ -4,7 +4,7 @@ const argon2 = require("argon2");
 
 
 exports.signup = async (req, res) => {
-	const {firstName, lastName, email, password, userName} = req.body;
+	const {firstName, lastName, email, password, username} = req.body;
 
 	try{
 		let user = await User.findOne({where: {email}})
@@ -14,8 +14,10 @@ exports.signup = async (req, res) => {
 		const hashed_password = await argon2.hash(password);
 		user = await User.create({firstName, lastName, email,
 			hashed_password: hashed_password,
-			userName})
-			return res.status(200).json({message: "Signup successful", user})
+			username})
+		const userwithoutPassword = user.toJSON();
+		delete userwithoutPassword.hashed_password
+		return res.status(200).json({message: "Signup successful", userwithoutPassword})
 	} catch (err) {
 		return res.status(500).json({message: "Internal server error", error: err.message})
 	}

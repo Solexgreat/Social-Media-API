@@ -22,6 +22,11 @@ module.exports = {
         allowNull:false,
         unique: true
       },
+      role: {
+        type: Sequelize.STRING,
+        defaultValue: "user",
+        allowNull: true,
+      },
       hashed_password: {
         type: Sequelize.STRING,
         allowNull: false
