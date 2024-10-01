@@ -16,7 +16,6 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) =>{
 	const userId = req.user.id;
-	// const id = userId;
 	const userDict = req.body;
 
 	try{
