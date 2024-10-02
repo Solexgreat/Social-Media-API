@@ -1,6 +1,8 @@
 const {User} = require("../models");
 const jwt = require("jsonwebtoken");
+const generateToken = require("../utils/generateToken")
 const argon2 = require("argon2");
+const { sendEmail } = require("../utils/sendEmails");
 
 
 exports.signup = async (req, res) => {
@@ -34,16 +36,50 @@ exports.login = async (req, res) => {
 		if (!isPasswordValid) {
 			return res.status(400).json({message: "password is incorrect"})
 		}
-		const token = jwt.sign({
-			user: {
-				id: user.id,
-				email: user.email
-			 }}, process.env.JWT_SECRET,
-			{expiresIn: '1h'
-			}
-		);
+		const token = generateToken(user)
 		return res.status(200).json({message: "login successful", token})
 	} catch (err) {
+		return res.status(500).json({error: err.message})
+	}
+}
+
+exports.passwordResetRequest = async (req, res) => {
+	const {email} = req.body;
+	try{
+		const user = await User.findOne({where: {email: email}})
+		if (!user) {
+			return res.status(400).json({message: "Invalid Email"})
+		}
+		const resetToken = generateToken(user)
+		const resetUrl = `${req.protocol}://${req.get(host)}/reset-password/${resetToken}`
+
+		await sendEmail(user.email, 'Password reset token', `Please clik the link to reset your password: ${resetUrl}` )
+
+		return res.status(200).json({message: "Password has been sent to your email"})
+	} catch (err) {
+		return res.status(500).json({error: err.message})
+	}
+}
+
+exports.resetPassword = async (req, res) => {
+	const {token} = req.params;
+	const {newPassword} = req.body;
+	const userId = req.user.id
+
+	try{
+		const hashed_password = argon2.hash(newPassword);
+
+		let user = await User.findOne({where:{id: userId}})
+		if (!user) {
+			return res.status(404).json({ message: "User not found" });
+		}
+		user.hashed_password = hashed_password
+		await user.save()
+
+		 return (res.status(200).json({message: "Password change successfully"}) && user)
+	} catch (err) {
+		if (err.name == "TokenExpiredError")
+			return res.status(400).json({message: "Token has expired"})
 		return res.status(500).json({error: err.message})
 	}
 }

@@ -3,34 +3,40 @@ const {Comment} = require('../models');
 
 exports.createComment = async (req, res) => {
 	const commentBody = req.body;
-	const postId 
-	const {userId} = req.user.id;
+	const {postId} = req.params;
+	const userId = req.user.id;
 
 	try{
-		const product = await Product.findOne({where: {id: productId}});
-		if (!product)
-			return res.status(400).json({message: "Product not found"});
-		const review = await Review.create({rate: rate,
-			comment: comment,
-			productId: productId,
-			userId: userId
+		const post = await Post.findOne({where: {post: postId}});
+		if (!post)
+			return res.status(400).json({message: "Post not found"});
+		const comment = await Comment.create({...commentBody,
+			userId: userId,
+			postId: postId
 		})
-		return res.status(200).json(review);
+		const displayComment = {
+			content: comment.content,
+			imageUrl: comment.imageUrl,
+			videoUrl: comment.viodeoUrl,
+		}
+
+		return res.status(200).json(displayComment);
 	} catch (err) {
 		return res.status(500).json({message: "Internal server error", error: err.message});
 	}
 }
 
-exports.updateReview = async (req, res) =>{
-	const {reviewId} = req.params;
-	const {comment} = req.body;
+exports.updateComment = async (req, res) =>{
+	const {commentId} = req.params;
+	const commentBody = req.body;
+
 	try{
-		let review = await Review.findByPk(reviewId);
-		if (!review)
-			return res.status(400).json({message: "Review not found"});
-		await Review.update({comment}, {where: reviewId});
-		review = await Review.findByPk(reviewId)
-		return res.status(200).json(review);
+		let comment = await Comment.findByPk(commentId);
+		if (!comment)
+			return res.status(400).json({message: "Comment not found"});
+		await Comment.update(commentBody, {where: {id:commentId}});
+		comment = await Comment.findByPk(commentId)
+		return res.status(200).json(comment);
 	} catch (err) {
 		return res.status(500).json({message: "Internal server error", error: err.message});
 	}
