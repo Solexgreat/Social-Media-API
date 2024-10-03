@@ -64,12 +64,12 @@ exports.passwordResetRequest = async (req, res) => {
 exports.resetPassword = async (req, res) => {
 	const {token} = req.params;
 	const {newPassword} = req.body;
-	const userId = req.user.id
 
 	try{
-		const hashed_password = argon2.hash(newPassword);
+		const decode = jwt.verify(token, process.env.JWR_SECRET)
+		const hashed_password = await argon2.hash(newPassword);
 
-		let user = await User.findOne({where:{id: userId}})
+		let user = await User.findByPk(decode.id)
 		if (!user) {
 			return res.status(404).json({ message: "User not found" });
 		}

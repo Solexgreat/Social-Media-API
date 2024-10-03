@@ -16,9 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   }
-  Like.init({
-    userid: DataTypes.STRING
-  }, {
+  Like.init({}, {
     sequelize,
     modelName: 'Like',
   });

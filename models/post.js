@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-    comment: DataTypes.STRING
+    content: DataTypes.STRING,
+    imageUrl: DataTypes.STRING,
+    videoUrl: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Post',
