@@ -21,3 +21,16 @@ exports.unLike = async (req, res) => {
 		return res.status(500).json({error: err.message})
 	}
 }
+
+exports.getLikes = async (req, res) => {
+	const userId = req.user.id;
+
+	try{
+		const likes = await Like.findAll({where: {userId}})
+		if (!likes)
+			return res.status(400).json({message: "No likes yet"})
+		return res.status(200).json({likes})
+	} catch (err) {
+		return res.status(500).json({error: err.message})
+	}
+}
