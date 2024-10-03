@@ -16,7 +16,7 @@ exports.getAllNotification = async (req, res) => {
 	const userId = req.user.id;
 
 	try{
-		const notifications = await Notification.findAll({where: {userId: userId}})
+		const notifications = await Notification.findAll({where: {userId}})
 		if (!notifications)
 			return res.status(400).json({message: "No notification yet"})
 		return res.status(200).json({notifications})
@@ -27,7 +27,7 @@ exports.getAllNotification = async (req, res) => {
 
 exports.updateNotification = async (req, res) => {
 	const {notifyId} = req.params;
-	const {isRead} = req.boby;
+	const {isRead} = req.body;
 	try{
 		await Notification.update({isRead}, {where: {id: notifyId}})
 
