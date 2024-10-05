@@ -30,7 +30,7 @@ exports.updateUser = async (req, res) =>{
 	}
 }
 
-exports.getUser = async (req, res) => {
+exports.getUsers = async (req, res) => {
 	try{
 		const users = await User.findAll()
 		return res.status(200).json({users})

@@ -1,6 +1,14 @@
 const express = require ('express');
 const bodyParser = require ('body-parse');
 const dotenv = require ('dotenv')
+const userRoutes = require('./routes/user')
+const commentRoutes = require('./routes/comment')
+const followerRoutes = require('./routes/follower')
+const likeRoutes = require('./routes/like')
+const notificationRoutes = require('./routes/notification')
+const postRoutes = require('./routes/post')
+const repostRoutes = require('./routes/repost')
+const authRoutes = require('./routes/auth')
 
 
 const app = express();
@@ -12,4 +20,22 @@ dotenv.config() //load evn variable
 app.use(bodyParser.json())
 
 //serve the routes
-app.use('/api/user', userRoutes)
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
+app.use('/repost', repostRoutes);
+app.use('/post', postRoutes);
+app.use('/notification', notificationRoutes);
+app.use('/comment', commentRoutes);
+app.use('/like', likeRoutes);
+app.use('/follow', followerRoutes);
+
+
+app.use((err, res, req, next) =>{
+	return res.status(500).json({error: err.message})
+})
+
+//Start the server
+const PORT = process.env.PORT;
+app.listen(PORT, ()=> {
+	console.log(`Server is running on port ${PORT}`)
+})

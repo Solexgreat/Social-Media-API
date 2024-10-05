@@ -33,3 +33,29 @@ exports.updateRepost = async (req, res) => {
 		return res.status(500).json({error: err.message})
 	}
 }
+
+exports.getYourRepost = async (req, res) => {
+	const userId = req.user.id;
+	try{
+		const reposts = await Repost.findAll({where: {userId}})
+		if (!reposts) {
+			return res.status(404).json({message: "No reposts"})
+		}
+		return res.status(200).json({reposts})
+	} catch (err) {
+		return res.status(500).json({error: err.message})
+	}
+}
+
+exports.getRepostForPost = async (req, res) => {
+	const {originalPostId} = req.body;
+	try{
+		const reposts = await Repost.findAll({where: {originalPostId}})
+		if (!reposts) {
+			return res.status(404).json({message: "No reposts"})
+		}
+		return res.status(200).json({reposts})
+	} catch (err) {
+		return res.status(500).json({error: err.message})
+	}
+}

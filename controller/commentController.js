@@ -41,3 +41,30 @@ exports.updateComment = async (req, res) =>{
 		return res.status(500).json({message: "Internal server error", error: err.message});
 	}
 }
+
+exports.deleteComment = async (req, res) => {
+	const {commentId} = req.params;
+	try{
+		const comment = await Comment.findByPk(commentId);
+		if (!comment) {
+			return res.status(404).json({message: "Comment not found"})
+		}
+		await Comment.delete({where: {id: commentId}})
+		return res.status(200).json({message: "Comment deleted successfully"})
+	} catch (err){
+		return res.status(500).json({error: err.message})
+	}
+}
+
+exports.getComment = async (req, res) => {
+	const userId = req.user.id;
+
+	try{
+		const comments = await Comment.findAll({where: {userId}})
+		if (!comments)
+			return res.status(400).json({message: "No likes yet"})
+		return res.status(200).json({comments})
+	} catch (err) {
+		return res.status(500).json({error: err.message})
+	}
+}
