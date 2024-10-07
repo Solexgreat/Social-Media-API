@@ -51,6 +51,13 @@ module.exports = {
       videoUrl: {
         type: Sequelize.STRING
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference : {
+          model: 'testUsers',
+          key: "id"
+        }, }
     }, {
       schema: 'test_schema'
     });
@@ -71,6 +78,20 @@ module.exports = {
       videoUrl: {
         type: Sequelize.STRING
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        reference : {
+          model: 'testUsers',
+          key: "id"
+        }, },
+        postId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          reference : {
+            model: 'testPosts',
+            key: "id"
+          }, }
     }, {
       schema: 'test_schema'
     });

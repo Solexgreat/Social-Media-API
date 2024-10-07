@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Repost.belongTo(models.User, {foreignkey: "userId", as: "user"})
-      Repost.belongTo(models.Post, {foreignkey: "postId", as: "post"})
+      Repost.belongsTo(models.User, {foreignkey: "userId", as: "user"})
+      Repost.belongsTo(models.Post, {foreignkey: "postId", as: "post"})
 
     }
   }

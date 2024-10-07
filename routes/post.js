@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.post('/Post', authMiddlewares, createPost);
-router.put('/update-Post', authMiddlewares, pdatePost);
+router.put('/update-Post', authMiddlewares, updatePost);
 router.delete('/delete-post', authMiddlewares, deletePost);
 router.get('/', authMiddlewares, getAllPost);
 router.get('/:id', authMiddlewares, getPostById);
