@@ -3,7 +3,7 @@
 // import User from '../models/user.js';
 // import Post from '../models/post.js';
 // import Comment from '../models/comment.js';
-const sequelize = require('../models')
+const Sequelize = require('../models')
 const Comment = require('../models');
 const Post = require('../models');
 const User = require('../models');
@@ -19,11 +19,10 @@ const User = require('../models');
 // const { expect } = chai;
 
 describe('Authentication test', () => {
-	beforeAll(async () =>{
-		await User.sync({ force: true, schema: 'test_schema' });
-		await Post.sync({ force: true, schema: 'test_schema' });
-		await Comment.sync({ force: true, schema: 'test_schema' });
-	});
+	beforeAll(async () => {
+    // Use the existing Sequelize instance from index.js
+    await Sequelize.sync({ force: true, schema: 'test_schema' });
+  });
 
 	it('should be able to create user', async () =>{
 		const user = await User.create({
