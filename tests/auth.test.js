@@ -1,71 +1,46 @@
-// import chai from 'chai';
-// import db from '../models/index.js';
-// import User from '../models/user.js';
-// import Post from '../models/post.js';
-// import Comment from '../models/comment.js';
-const Sequelize = require('../models')
-const Comment = require('../models');
-const Post = require('../models');
-const User = require('../models');
-// const app =  import ('../app');
-// const chai =  require ('chai')
+const request = require('supertest')
+const conect = require('../models/index')
+const app = require('../app')
+const {
+  expect,
+  describe,
+  test,
+  afterAll,
+} = require('@jest/globals');
+const req = request(app);
 
-// (async () => {
-//   const chaiAsPromised = await import('chai-as-promised');
-//   chai.use(chaiAsPromised.defauimport { Sequelize } from 'sequelize';
-//lt);
-// })();
 
-// const { expect } = chai;
 
-describe('Authentication test', () => {
-	beforeAll(async () => {
-    // Use the existing Sequelize instance from index.js
-    await Sequelize.sync({ force: true, schema: 'test_schema' });
-  });
+describe('Authenticate Testing', () => {
+	test('should signup the new user', async () =>{
+		const res = await req
+		.post('/auth/signup')
+		.send({lastName: "testLastName",
+			firstName: "testFirstName",
+			username: "testUsername",
+			email: "testEmail",
+			password: "testPassword"
+		})
 
-	it('should be able to create user', async () =>{
-		const user = await User.create({
-			lastName: "John Deo",
-		}, {schema: 'test_schema'})
+		expect(res.statusCode).toEqual(201)
+		expect(res.body).toHaveProperty('token')
+	}, 10000);
 
-		expect(user).toHaveProperty('id')
-		expect(user.name).to.equal("John Doe")
+	test('should login a user', async () => {
+		const res = await req
+		.post('/auth/login')
+		.send({username: "testUsername", password: "testPassword"})
+
+		expect(res.statusCode).toEqual(200)
+		expect(res.body).toHaveProperty('token')
+	}, 20000);
+
+	afterAll(async () => {
+		try {
+			await conect.dbDisconnect();
+		} catch (error) {
+			console.error(error);
+			process.exit(1);
+		}
 	});
-
-	it('should be able to create a post with the associated user', async () =>{
-		const user = await User.findOne({
-			where:
-			{lastName: "John Deo"}
-		}, {schema: 'test_schema'})
-
-		const post = await Post.create({
-			userId: user.id,
-			content: "test Post"
-		}, {schema: 'test_schema'})
-
-		expect(post).toHaveProperty('id')
-		expect(post.content).to.be("test Post")
-	});
-
-	it('should be able to create a comment with the associated user', async () =>{
-
-		const post = await Post.findOne({
-			where:
-			{content: "test Post"}
-		}, {schema: 'test_schema'})
-
-		const comment = await Comment.create({
-
-			postId: post.id,
-			content: "test comment"
-		}, {schema: 'test_schema'})
-
-		expect(comment).totoHavePropert('id')
-		expect(comment.content).to.be("test Comment")
-	});
-
-	afterAll (async ()=>{
-		await sequelize.dropSchema('test_schema')
-	})
 })

@@ -17,9 +17,9 @@ exports.signup = async (req, res) => {
 		user = await User.create({firstName, lastName, email,
 			hashed_password: hashed_password,
 			username})
-		const userwithoutPassword = user.toJSON();
-		delete userwithoutPassword.hashed_password
-		return res.status(200).json({message: "Signup successful", userwithoutPassword})
+
+		const token = generateToken(user)
+		return res.status(201).json({message: "Signup successful", token: token})
 	} catch (err) {
 		return res.status(500).json({message: "Internal server error", error: err.message})
 	}
@@ -37,7 +37,7 @@ exports.login = async (req, res) => {
 			return res.status(400).json({message: "password is incorrect"})
 		}
 		const token = generateToken(user)
-		return res.status(200).json({message: "login successful", token})
+		return res.status(201).json({message: "login successful", token: token})
 	} catch (err) {
 		return res.status(500).json({error: err.message})
 	}
