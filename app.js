@@ -20,7 +20,7 @@ dotenv.config() //load evn variable
 app.use(bodyParser.json())
 
 //serve the routes
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/repost', repostRoutes);
 app.use('/post', postRoutes);
