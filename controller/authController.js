@@ -6,7 +6,7 @@ const { sendEmail } = require("../utils/sendEmails");
 
 
 exports.signup = async (req, res) => {
-	const {firstName, lastName, email, password, username} = req.body;
+	const {firstName, lastName, email, password, username} = req.body
 
 	try{
 		let user = await User.findOne({where: {email}})
