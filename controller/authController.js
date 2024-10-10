@@ -1,6 +1,6 @@
 const {User} = require("../models");
 const jwt = require("jsonwebtoken");
-const generateToken = require("../utils/generateToken")
+const {generateToken} = require("../utils/generateToken")
 const argon2 = require("argon2");
 const { sendEmail } = require("../utils/sendEmails");
 
