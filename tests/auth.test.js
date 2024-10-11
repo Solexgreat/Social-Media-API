@@ -1,5 +1,5 @@
 const request = require('supertest')
-const conect = require('../models/index')
+const {dbDisconnect} = require('../models/index')
 const app = require('../app')
 const {
   expect,
@@ -37,7 +37,7 @@ describe('Authenticate Testing', () => {
 
 	afterAll(async () => {
 		try {
-			await conect.dbDisconnect();
+			await dbDisconnect();
 		} catch (error) {
 			console.error(error);
 			process.exit(1);

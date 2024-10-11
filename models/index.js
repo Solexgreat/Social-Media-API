@@ -38,13 +38,12 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+exports.dbDisconnect = async () => {
+  await db.sequelize.close();
+};
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 
 module.exports = db;
-
-exports.dbDisconnect = async () => {
-  await db.sequelize.close();
-};
-
