@@ -1,14 +1,14 @@
 const {User} = require("../models")
 
 
-exports.getUserById = async (req, res) => {
+exports.getUserProfile = async (req, res) => {
 	const userId = req.user.id;
 	try{
-		const user = await User.findOne({where: {id: userId}});
-		if (!user)
+		const userData = await User.findOne({where: {id: userId}});
+		if (!userData)
 			return res.status(403).json({message: "User not found"})
 
-		return res.status(200).json({user})
+		return res.status(200).json({userData})
 	} catch (err) {
 		return res.staus(500).json({message: "Internal server error", error: err.message})
 	}
@@ -30,9 +30,9 @@ exports.updateUser = async (req, res) =>{
 	}
 }
 
-exports.getUsers = async (req, res) => {
+exports.getUserById = async (req, res) => {
 	try{
-		const users = await User.findAll()
+		const users = await User.findOne({where: {id: req.params}})
 		return res.status(200).json({users})
 	} catch (err) {
 		return res.status(500).json({error: err.message})

@@ -10,7 +10,7 @@ const {
 const req = request(app);
 
 
-
+let authorizationToken;
 describe('Authenticate Testing', () => {
 	test('should signup the new user', async () =>{
 		const res = await req
@@ -18,9 +18,10 @@ describe('Authenticate Testing', () => {
 		.send({lastName: "testLastName",
 			firstName: "testFirstName",
 			username: "testUsername",
-			email: "testEmail",
+			email: "testEmail1",
 			password: "testPassword"
 		})
+
 
 		expect(res.statusCode).toEqual(201)
 		expect(res.body).toHaveProperty('token')
@@ -31,8 +32,19 @@ describe('Authenticate Testing', () => {
 		.post('/auth/login')
 		.send({username: "testUsername", password: "testPassword"})
 
-		expect(res.statusCode).toEqual(200)
+		authorizationToken = res.body.data.encryptedToken;
+
+		expect(res.statusCode).toEqual(201)
 		expect(res.body).toHaveProperty('token')
+	}, 20000);
+
+	test('should get user profile', async () => {
+		const res = await req
+		.post('/user/account-profile')
+		.set("Authorization", authorizationToken)
+
+		expect(res.statusCode).toEqual(200)
+		expect(res.body).toHaveProperty('Id')
 	}, 20000);
 
 	afterAll(async () => {

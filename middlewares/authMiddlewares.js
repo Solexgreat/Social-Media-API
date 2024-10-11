@@ -19,4 +19,15 @@ const authMiddlewares = (req, res, next) =>{
 	}
 }
 
+
+const authorzeRole = async (role) => {
+	return (req, res, next) => {
+		if (req.body.role != role) {
+			res.status(403).json('Forbidden')
+		}
+		next();
+	}
+}
+
 module.exports = authMiddlewares;
+module.exports = authorzeRole;
