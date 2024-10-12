@@ -6,7 +6,7 @@ const authorzeRole = require('../middlewares/authMiddlewares');
 
 router.get('/account-profile', authMiddlewares, getUserProfile)
 router.get('/:id', authMiddlewares, getUserById)
-router.put('update-user', authMiddlewares, updateUser)
-router.delete('delete', authMiddlewares, authorzeRole('admin'), deleteUser)
+router.put('/update-user', authMiddlewares, updateUser)
+router.delete('/delete', authMiddlewares, authorzeRole('admin'), deleteUser)
 
 module.exports = router;

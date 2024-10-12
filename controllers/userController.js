@@ -38,20 +38,3 @@ exports.getUserById = async (req, res) => {
 		return res.status(500).json({error: err.message})
 	}
 }
-
-exports.deleteUser = async (req, res) => {
-	const {userId} = req.body;
-
-	try{
-		const user = await User.findOne({where: {id: userId}})
-		if (!user) {
-			return res.status(400).json({message: "User not found"})
-		}
-		if (user.role === "admin")
-			return res.status(403).json({message: "Can't delete admin"})
-		await User.delete({where: {id: userId}})
-		return res.status(200).json({message: "User deleted"})
-	} catch (err) {
-		return res.status(500).json({error: err.message})
-	}
-}

@@ -32,7 +32,7 @@ describe('Authenticate Testing', () => {
 		.post('/auth/login')
 		.send({username: "testUsername", password: "testPassword"})
 
-		authorizationToken = res.body.data.encryptedToken;
+		authorizationToken = res.body.token;
 
 		expect(res.statusCode).toEqual(201)
 		expect(res.body).toHaveProperty('token')
@@ -41,11 +41,30 @@ describe('Authenticate Testing', () => {
 	test('should get user profile', async () => {
 		const res = await req
 		.post('/user/account-profile')
-		.set("Authorization", authorizationToken)
+		.set("Authorization", `Bearer ${authorizationToken}`)
 
 		expect(res.statusCode).toEqual(200)
 		expect(res.body).toHaveProperty('Id')
-	}, 20000);
+	},);
+
+	test('should update user profile', async () => {
+		const res = await req
+		.patch('/user/update-user')
+		.set("Authorization", `Bearer ${authorizationToken}`)
+		.send({"email": "updatedEmail@gmail.com"})
+
+		expect(res.statusCode).toEqual(200)
+		expect(res.body.email).toEqual("updatedEmail@gmail.com")
+	},);
+
+	test('should get user', async () => {
+		const res = await req
+		.get('/user/1')
+		.set("Authorization", `Bearer ${authorizationToken}`)
+
+		expect(res.statusCode).toEqual(200)
+		expect(res.body.id).toEqual(1)
+	},);
 
 	afterAll(async () => {
 		try {

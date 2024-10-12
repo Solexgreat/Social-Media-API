@@ -38,7 +38,7 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-exports.dbDisconnect = async () => {
+db.dbDisconnect = async () => {
   await db.sequelize.close();
 };
 
