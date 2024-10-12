@@ -35,7 +35,7 @@ app.use('/like', likeRoutes);
 app.use('/follow', followerRoutes);
 
 
-app.use((err, res, req, next) =>{
+app.use((err, req, res, next) =>{
 	return res.status(500).json({error: err.message})
 })
 
