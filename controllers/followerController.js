@@ -1,8 +1,8 @@
 const {Follower} = require("../models");
-const {User} = require('../models')
+// const {User} = require('../models')
 
 
-exports.createFollow = async (req, res) => {
+exports.follow = async (req, res) => {
 	const userId = req.user.id;
 	const followerBody = req.body;
 	try {
@@ -14,9 +14,11 @@ exports.createFollow = async (req, res) => {
 }
 
 exports.unFollow = async (req, res) => {
-	const followId = req.params;
+	const followingId = req.params;
 	try{
-		await Follower.delete({where: {id: followId}})
+		const follow = await Follower.destroy({where: {id: followingId}})
+		if (follow === 0) return res.status(404).json({ message: "Like not found" });
+
 		return res.status(200).json({message: "successfully unlike"})
 	} catch (err) {
 		return res.status(500).json({error: err.message})

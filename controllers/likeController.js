@@ -13,9 +13,12 @@ exports.createLike = async (req, res) => {
 }
 
 exports.unLike = async (req, res) => {
-	const likeId = req.params;
+	const {likeId} = req.params;
 	try{
-		await Like.delete({where: {id: likeId}})
+		const result = await Like.destroy({where: {id: likeId}})
+		if (result === 0) {
+      return res.status(404).json({ message: "Like not found" });
+    }
 		return res.status(200).json({message: "successfully unlike"})
 	} catch (err) {
 		return res.status(500).json({error: err.message})

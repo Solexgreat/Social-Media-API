@@ -7,7 +7,7 @@ exports.createComment = async (req, res) => {
 	const userId = req.user.id;
 
 	try{
-		const post = await Post.findOne({where: {post: postId}});
+		const post = await Post.findOne({where: {id: postId}});
 		if (!post)
 			return res.status(400).json({message: "Post not found"});
 		const comment = await Comment.create({...commentBody,
@@ -20,7 +20,7 @@ exports.createComment = async (req, res) => {
 			videoUrl: comment.viodeoUrl,
 		}
 
-		return res.status(200).json(displayComment);
+		return res.status(200).json({comment: displayComment});
 	} catch (err) {
 		return res.status(500).json({message: "Internal server error", error: err.message});
 	}
@@ -45,11 +45,10 @@ exports.updateComment = async (req, res) =>{
 exports.deleteComment = async (req, res) => {
 	const {commentId} = req.params;
 	try{
-		const comment = await Comment.findByPk(commentId);
-		if (!comment) {
+		const comment = Comment.destroy({where: {id: commentId}})
+		if (comment === 0) {
 			return res.status(404).json({message: "Comment not found"})
 		}
-		await Comment.delete({where: {id: commentId}})
 		return res.status(200).json({message: "Comment deleted successfully"})
 	} catch (err){
 		return res.status(500).json({error: err.message})

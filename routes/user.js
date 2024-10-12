@@ -5,7 +5,7 @@ const verifyToken = require('../middlewares/authMiddlewares');
 
 
 router.get('/account-profile', verifyToken, getUserProfile)
-router.get('/:id', verifyToken, getUserById)
+router.get('/:userId', verifyToken, getUserById)
 router.put('/update-user', verifyToken, updateUser)
 
 module.exports = router;

@@ -2,14 +2,14 @@ const jwt = require("jsonwebtoken");
 
 
 const verifyToken = (req, res, next) =>{
-	const {token} = req.header("Authorization")
+	const authHeader = req.header("Authorization")
 
 	// verify token
-	if (!token) {
+	if (!authHeader) {
 		return req.status(400).json({message: "token is missing"})
 	}
 	try{
-		const jwtToken = token.split(" ")[1];
+		const jwtToken = authHeader.split(" ")[1];
 		const decode =  jwt.verify(jwtToken, process.env.JWT_SECRET)
 		req.user = decode.user
 		next()

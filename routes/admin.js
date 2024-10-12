@@ -9,7 +9,8 @@ const {
   createAnnouncement,
 	deleteUser,
 } = require('../controllers/adminController');
-const { verifyToken, authorizeRole } = require('../middlewares/authMiddlewares');
+const verifyToken = require('../middlewares/authMiddlewares');
+const authorizeRole = require('../middlewares/authMiddlewares');
 
 const router = express.Router();
 
