@@ -1,4 +1,4 @@
-onst express = require('express');
+const express = require('express');
 const {
   promoteUser,
   demoteUser,
@@ -6,8 +6,8 @@ const {
   approvePost,
   rejectPost,
   updateSettings,
-  getAnalytics,
   createAnnouncement,
+	deleteUser,
 } = require('../controllers/adminController');
 const { verifyToken, authorizeRole } = require('../middleware/authMiddleware');
 
@@ -20,5 +20,6 @@ router.patch('/approvePost/:id', verifyToken, authorizeRole('admin'), approvePos
 router.patch('/rejectPost/:id', verifyToken, authorizeRole('admin'), rejectPost);
 router.patch('/settings', verifyToken, authorizeRole('admin'), updateSettings);
 router.post('/announcement', verifyToken, authorizeRole('admin'), createAnnouncement);
+router.delete('/delete', deleteUser)
 
 module.exports = router;

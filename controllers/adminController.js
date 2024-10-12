@@ -34,6 +34,17 @@ exports.reactivateUser = async (req, res) => {
 	}
 };
 
+exports.deleteUser = async (req, res) => {
+	try{
+		const user = await User.findByPk({where: {id: req.params}})
+		if (!user) return res.status(400).json({message: "User not found"})
+		await user.remove()
+		return res.status(200).json({message: "User deleted"})
+	} catch (err) {
+		return res.status(500).json({error: err.message})
+	}
+}
+
 exports.promoteUser = async (req, res) => {
   try{
 		const user = await User.findByPk(req.params.id);
@@ -60,7 +71,7 @@ exports.demoteUser = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
 	try{
-		const post = await Post.findOne({where: {id: req.params}})
+		const post = await Post.findByPk({where: {id: req.params}})
 		if (!post) return res.status(400).json({message: "Post not found"})
 		await post.remove()
 		return res.status(200).json({message: "Post deleted"})

@@ -1,12 +1,12 @@
 const express = require ('express');
 const { repost, updateRepost, getYourRepost, getRepostForPost } = require('../controllers/repostController');
-const authMiddlewares = require('../middlewares/authMiddlewares');
+const {verifyToken} = require('../middlewares/authMiddlewares');
 const router = express.Router();
 
 
-router.post('/:id/repost', authMiddlewares, repost);
-router.put('/:id/quote', authMiddlewares, updateRepost);
-router.get('/getYourRepost', authMiddlewares, getYourRepost);
-router.get('/getRepostForPost', authMiddlewares, getRepostForPost);
+router.post('/:id/repost', verifyToken, repost);
+router.put('/:id/quote', verifyToken, updateRepost);
+router.get('/getYourRepost', verifyToken, getYourRepost);
+router.get('/getRepostForPost', verifyToken, getRepostForPost);
 
 module.exports = router;

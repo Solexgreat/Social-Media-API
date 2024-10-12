@@ -18,7 +18,7 @@ describe('Authenticate Testing', () => {
 		.send({lastName: "testLastName",
 			firstName: "testFirstName",
 			username: "testUsername",
-			email: "testEmail1",
+			email: "testEmail2",
 			password: "testPassword"
 		})
 
@@ -66,12 +66,12 @@ describe('Authenticate Testing', () => {
 		expect(res.body.id).toEqual(1)
 	},);
 
-	afterAll(async () => {
-		try {
-			await dbDisconnect();
-		} catch (error) {
-			console.error(error);
-			process.exit(1);
-		}
-	});
+	// afterAll(async () => {
+	// 	try {
+	// 		await dbDisconnect();
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 		process.exit(1);
+	// 	}
+	// });
 })
