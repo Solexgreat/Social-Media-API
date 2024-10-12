@@ -6,7 +6,7 @@ const verifyToken = (req, res, next) =>{
 
 	// verify token
 	if (!authHeader) {
-		return req.status(400).json({message: "token is missing"})
+		return res.status(400).json({message: "token is missing"})
 	}
 	try{
 		const jwtToken = authHeader.split(" ")[1];
@@ -15,7 +15,7 @@ const verifyToken = (req, res, next) =>{
 		next()
 		return;
 	} catch (err) {
-		return req.status(500).json({message: "Token is not valid", error: err.message})
+		return res.status(500).json({message: "Token is not valid", error: err.message})
 	}
 }
 
