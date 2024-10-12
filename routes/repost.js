@@ -1,5 +1,5 @@
 const express = require ('express');
-const { repost, updateRepost, getYourRepost, getRepostForPost } = require('../controller/repostController');
+const { repost, updateRepost, getYourRepost, getRepostForPost } = require('../controllers/repostController');
 const authMiddlewares = require('../middlewares/authMiddlewares');
 const router = express.Router();
 

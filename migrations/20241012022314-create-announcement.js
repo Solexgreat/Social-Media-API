@@ -13,11 +13,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       isPublished: {
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       expirationDate: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false
       },
       createdAt: {

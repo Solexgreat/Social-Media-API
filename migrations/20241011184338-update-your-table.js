@@ -9,13 +9,13 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn('users', 'status', {
-      types: Sequelize.STRING,
+    await queryInterface.addColumn('Users', 'status', {
+      type: Sequelize.STRING,
       defaultValue: 'active',
     });
 
-    await queryInterface.addColumn('posts', 'isApproved', {
-      types: Sequelize.BOOLEAN,
+    await queryInterface.addColumn('Posts', 'isApproved', {
+      type: Sequelize.BOOLEAN,
       defaultValue: true,
     });
   },
@@ -27,7 +27,7 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeColumn('users', 'status');
-    await queryInterface.removeColumn('posts', 'isApproved');
+    await queryInterface.removeColumn('Users', 'status');
+    await queryInterface.removeColumn('Posts', 'isApproved');
   }
 };

@@ -8,7 +8,8 @@ const likeRoutes = require('./routes/like')
 const notificationRoutes = require('./routes/notification')
 const postRoutes = require('./routes/post')
 const repostRoutes = require('./routes/repost')
-const authRoutes = require('./routes/auth')
+const authRoutes = require('./routes/auth');
+const { generalLimiter, authLimiter } = require('./limiter');
 
 
 const app = express();
@@ -18,6 +19,10 @@ dotenv.config() //load evn variable
 
 //Middleware to parse incoming Json request
 app.use(bodyParser.json())
+
+// Limiter
+app.use('/', generalLimiter),
+app.use('/auth', authLimiter)
 
 //serve the routes
 app.use('/auth', authRoutes);
