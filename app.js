@@ -20,9 +20,7 @@ dotenv.config() //load evn variable
 //Middleware to parse incoming Json request
 app.use(bodyParser.json())
 
-// Limiter
-app.use('/', generalLimiter),
-app.use('/auth', authLimiter)
+
 
 //serve the routes
 app.use('/auth', authRoutes);
@@ -34,6 +32,10 @@ app.use('/comment', commentRoutes);
 app.use('/like', likeRoutes);
 app.use('/follow', followerRoutes);
 
+
+// Limiter
+app.use('/', generalLimiter),
+app.use('/auth', authLimiter)
 
 app.use((err, req, res, next) =>{
 	return res.status(500).json({error: err.message})
