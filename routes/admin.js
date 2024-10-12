@@ -20,6 +20,6 @@ router.patch('/approvePost/:id', verifyToken, authorizeRole('admin'), approvePos
 router.patch('/rejectPost/:id', verifyToken, authorizeRole('admin'), rejectPost);
 router.patch('/settings', verifyToken, authorizeRole('admin'), updateSettings);
 router.post('/announcement', verifyToken, authorizeRole('admin'), createAnnouncement);
-router.delete('/delete', deleteUser)
+router.delete('/delete', verifyToken, authorizeRole('admin'), deleteUser)
 
 module.exports = router;
