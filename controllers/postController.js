@@ -59,9 +59,8 @@ exports.getPostById = async (req, res) => {
 }
 
 exports.getAllPost = async (req, res) =>{
-	const userId = req.user.id;
-
 	try{
+		const userId = req.user.id;
 		const posts = await Post.findAll({where: {userId: userId}})
 		if (!posts) {
 			return res.status(403).json({message: "User has not posted yet"})

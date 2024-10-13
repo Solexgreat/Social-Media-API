@@ -10,10 +10,11 @@ const verifyToken = (req, res, next) =>{
 	}
 	try{
 		const jwtToken = authHeader.split(" ")[1];
-		const decode =  jwt.verify(jwtToken, process.env.JWT_SECRET)
-		req.user = decode.user
+		const decoded =  jwt.verify(jwtToken, process.env.JWT_SECRET)
+		console.log(decoded);
+		req.user = decoded.user
 		next()
-		return;
+		return
 	} catch (err) {
 		return res.status(500).json({message: "Token is not valid", error: err.message})
 	}
@@ -29,5 +30,4 @@ const authorzeRole = async (role) => {
 	}
 }
 
-module.exports = verifyToken;
-module.exports = authorzeRole;
+module.exports = {verifyToken, authorzeRole};

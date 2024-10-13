@@ -33,11 +33,16 @@ app.use('/follow', followerRoutes);
 
 
 // Limiter
-app.use('/', generalLimiter),
+app.use(generalLimiter),
 app.use('/auth', authLimiter)
 
 app.use((err, req, res, next) =>{
-	return res.status(500).json({error: err.message})
+	console.log(req.body)
+	console.log(req.header)
+	console.log(req.header('Authorization'))
+ 	console.log(req.user.id)
+	// console.log(request)
+	return res.status(500).json({message: "this", error: err, request: request})
 })
 
 //Start the server

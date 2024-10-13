@@ -1,6 +1,6 @@
 const express = require ('express');
 const { repost, updateRepost, getYourRepost, getRepostForPost } = require('../controllers/repostController');
-const verifyToken = require('../middlewares/authMiddlewares');
+const {verifyToken} = require('../middlewares/authMiddlewares');
 const router = express.Router();
 
 

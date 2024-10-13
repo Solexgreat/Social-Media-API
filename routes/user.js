@@ -1,7 +1,7 @@
 const express = require ('express');
 const router = express.Router();
 const { getUserProfile, getUserById, updateUser } = require ('../controllers/userController');
-const verifyToken = require('../middlewares/authMiddlewares');
+const {verifyToken} = require('../middlewares/authMiddlewares');
 
 
 router.get('/account-profile', verifyToken, getUserProfile)
