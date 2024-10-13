@@ -14,7 +14,7 @@ exports.createPost = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
 	const userDict = req.body;
-	const postId = req.params;
+	const {postId} = req.params;
 
 	try{
 		const post = await Post.findOne({where: {id: postId}});
