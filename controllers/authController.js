@@ -10,10 +10,14 @@ exports.signup = async (req, res) => {
 
 	try{
 		let user = await User.findOne({where: {email}})
-		if (user){
-			return res.status(403).json({message: "email already exist"})
-		}
-		const hashed_password = await argon2.hash(password);
+
+		if (user) return res.status(403).json({message: "email already exist"})
+
+		user = await User.findOne({where: {username}})
+
+		if (user) return res.status(403).json({message: "username already exist"})
+
+		hashed_password = await argon2.hash(password);
 		user = await User.create({firstName, lastName, email,
 			hashed_password: hashed_password,
 			username})
