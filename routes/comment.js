@@ -4,7 +4,7 @@ const {verifyToken} = require('../middlewares/authMiddlewares');
 const router = express.Router();
 
 
-router.put('/edit-comment/:commentId', verifyToken, updateComment);
+router.patch('/edit-comment/:commentId', verifyToken, updateComment);
 router.post('/comment/:postId', verifyToken, createComment);
 router.delete('/delete-comment/:commentId', verifyToken, deleteComment);
 router.get('/', verifyToken, getComment);
