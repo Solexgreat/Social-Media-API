@@ -9,6 +9,6 @@ router.post('/create-post', verifyToken, createPost);
 router.put('/update-post/:postId', verifyToken, updatePost);
 router.delete('/delete-post/:postId', verifyToken, deletePost);
 router.get('/', verifyToken, getAllPost);
-router.get('/:postid', verifyToken, getPostById);
+router.get('/:postId', verifyToken, getPostById);
 
 module.exports = router;

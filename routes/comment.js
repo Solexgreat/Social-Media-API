@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.patch('/edit-comment/:commentId', verifyToken, updateComment);
-router.post('/comment/:postId', verifyToken, createComment);
+router.post('/:postId', verifyToken, createComment);
 router.delete('/delete-comment/:commentId', verifyToken, deleteComment);
 router.get('/', verifyToken, getComment);
 

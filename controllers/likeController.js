@@ -1,11 +1,14 @@
 const {Like} = require("../models")
+const {Post} = require('../models')
 
 
 exports.createLike = async (req, res) => {
 	const userId = req.user.id;
-	const likeBody = req.body;
+	const {postId} = req.params;
 	try {
-		const like = await Like.create({...likeBody, userId: userId})
+		const post = await Post.findByPk(postId)
+		if (!post) return res.status(403).json({message:"Post not found"})
+		const like = await Like.create({postId: postId, userId: userId})
 		return res.status(200).json({like})
 	} catch (err) {
 		return res.status(500).json({error: err.message})

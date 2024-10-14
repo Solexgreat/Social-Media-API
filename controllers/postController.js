@@ -32,12 +32,10 @@ exports.deletePost = async (req, res) => {
 	const {postId} = req.params;
 
 	try{
-		const post = await Post.findOne({where: {id: postId}})
-		if (!post) {
+		const post = await Post.destroy({where: {id: postId}})
+		if (post === 0) {
 			return res.status(400).json({message: "Post not found"})
 		}
-
-		await Post.delete({where: {id: postId}})
 		return res.status(200).json({message: "Post deleted"})
 	} catch (err) {
 		return res.status(500).json({error: err.message})
@@ -46,15 +44,15 @@ exports.deletePost = async (req, res) => {
 
 
 exports.getPostById = async (req, res) => {
-	const postId = req.params;
+	const {postId} = req.params;
 	try{
 		const post = await Post.findOne({where: {id: postId}});
 		if (!post)
-			return res.status(403).json({message: "User not found"})
+			return res.status(403).json({message: "Post not found"})
 
 		return res.status(200).json({post})
 	} catch (err) {
-		return res.staus(500).json({message: "Internal server error", error: err.message})
+		return res.status(500).json({message: "Internal server error", error: err.message})
 	}
 }
 
