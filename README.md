@@ -54,13 +54,13 @@ The server will run on ```http://localhost:3000```.
 
 ## API Documentation
 API Documentation Link
-- Auth API <https://documenter.getpostman.com/view/35184158/2sAXxTbqYX>
+- [Auth API](https://documenter.getpostman.com/view/35184158/2sAXxTbqYX)
 
-- Post <https://documenter.getpostman.com/view/35184158/2sAXxTbqd1>
+- [Post](https://documenter.getpostman.com/view/35184158/2sAXxTbqd1)
 
-- Comment <https://documenter.getpostman.com/view/35184158/2sAXxTbqhR>
+- [Comment](https://documenter.getpostman.com/view/35184158/2sAXxTbqhR)
 
-- Like <https://documenter.getpostman.com/view/35184158/2sAXxTbqmq>
+- [Like](https://documenter.getpostman.com/view/35184158/2sAXxTbqmq)
 
 ### Testing
 To run tests, use the following command:
@@ -70,7 +70,7 @@ To run tests, use the following command:
 ```
 
 ## Deployment
-This project is deployed on Render <https://render.com> and is accessible for testing.
+This project is deployed on [Render](https://render.com) and is accessible for testing.
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a pull request or open an issue if you find any bugs or have suggestions for improvement.
