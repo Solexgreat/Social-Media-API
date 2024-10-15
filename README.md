@@ -70,7 +70,7 @@ To run tests, use the following command:
 ```
 
 ## Deployment
-This project is deployed on Render[https://render.com/?_gl=1*rffyd0*_gcl_au*MTEzMzkwNzAyMy4xNzI3MTcyNjc3*_ga*ODQ5MzM0MTUzLjE3MjcxNzI2ODc.*_ga_QK9L9QJC5N*MTcyODkzNDIxNC4yOC4xLjE3Mjg5MzQyMjguNDYuMC4w] and is accessible for testing.
+This project is deployed on Render[https://render.com] and is accessible for testing.
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a pull request or open an issue if you find any bugs or have suggestions for improvement.
@@ -78,8 +78,8 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 ### License
 This project is licensed under the MIT License.
 
-Acknowledgements
-PostgreSQL
-Sequelize
-Express.js
-Node.js
+### Acknowledgements
+- PostgreSQL
+- Sequelize
+- Express.js
+- Node.js
